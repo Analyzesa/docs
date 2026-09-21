@@ -7,3 +7,7 @@ test('subtraction', () => assert.strictEqual(calculate(10, '-', 5), 5));
 test('multiplication', () => assert.strictEqual(calculate(10, '*', 5), 50));
 test('division', () => assert.strictEqual(calculate(20, '/', 4), 5));
 test('division by zero', () => assert.throws(() => calculate(1, '/', 0)));
+
+test('negative numbers', () => assert.strictEqual(calculate(-10, '+', 5), -5));
+test('float division', () => assert.strictEqual(calculate(7, '/', 2), 3.5));
+test('unknown operator throws', () => assert.throws(() => calculate(1, '^', 2)));
