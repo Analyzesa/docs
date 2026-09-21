@@ -11,8 +11,8 @@ jobs:
   create-pr:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: '22'
 
@@ -28,7 +28,6 @@ jobs:
             node --test calculator.test.js 2>&1 || true
             echo '```'
           } > reports/test-report.md
-          echo "--- Preview ---"
           head -20 reports/test-report.md
 
       - name: Create Pull Request
