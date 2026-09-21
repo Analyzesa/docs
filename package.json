@@ -106,7 +106,7 @@
     "sync-rest": "tsx src/rest/scripts/update-files.ts",
     "sync-secret-scanning": "tsx src/secret-scanning/scripts/sync.ts",
     "sync-webhooks": "npx tsx src/rest/scripts/update-files.ts -o webhooks",
-    "test": "vitest",
+    "test": "node --test",
     "test:article-api": "cross-env ROOT=src/fixtures/fixtures TRANSLATIONS_FIXTURE_ROOT=src/fixtures/fixtures/translations npm test -- --no-file-parallelism --maxWorkers=1 src/article-api/tests/",
     "test:fixtures": "cross-env ROOT=src/fixtures/fixtures TRANSLATIONS_FIXTURE_ROOT=src/fixtures/fixtures/translations npm test -- src/fixtures/tests/",
     "test:landings": "cross-env ROOT=src/fixtures/fixtures npm test -- src/landings/tests/",
