@@ -441,7 +441,7 @@ These are the slash commands you can use from within an interactive CLI session.
 | `/diff`                                             | Review changes in the current directory; auto-switches to branch diff when the working tree is clean (experimental). |
 | `/downgrade VERSION`                              | Download and restart into a specific CLI version. Available for team accounts. |
 | `/env`                                              | Show loaded environment details (instructions, MCP servers, skills, agents, hooks, plugins, LSPs, extensions). |
-| `/every [INTERVAL PROMPT]`, `/every`              | Schedule a recurring prompt, skill, or schedulable slash command for the current session (for example, `/every 1h run tests` or `/every 1d /chronicle standup`). With no arguments the schedule manager is displayed. {% data reusables.copilot.experimental %} |
+| `/every [INTERVAL] PROMPT`, `/every`              | Schedule a recurring prompt, skill, or schedulable slash command for the current session (for example, `/every 1h run tests` or `/every 1d /chronicle standup`). With no arguments the schedule manager is displayed. {% data reusables.copilot.experimental %} |
 | `/exit`, `/quit`                                    | Close the current session. If other sessions are running, this foregrounds the newest remaining one instead of quitting. Quits the CLI only when it is the last open session. `/exit print` always tears down the CLI and offers to dump the transcript. |
 | `/extensions [manage\|mode]`, `/extension`          | Manage CLI extensions. {% data reusables.copilot.experimental %} |
 | `/experimental [on\|off\|show]`                     | Toggle, set, or show experimental features. |
@@ -531,7 +531,7 @@ The footer shows an "N scheduled" indicator by default whenever the session has 
 
 | Option                             | Purpose                                  |
 |------------------------------------|------------------------------------------|
-| `--add-dir=PATH`                   | Allow file access to a directory and load its `.github/skills` and `.github/agents` as trusted configurations (can be used multiple times). A relative path resolves against the session working directory (the `--resume`, `--worktree`, or `-C` directory), regardless of option order. |
+| `--add-dir=PATH`                   | Allow file access to a directory and load its `.github/skills` and `.github/agents` as trusted configurations (can be used multiple times). A relative path resolves against the session working directory (the `--resume`, `--worktree`, or `-C` directory), regardless of option order. The path must be an existing directory—a missing path or a regular file fails startup immediately with a flag-specific error, the same way in every mode. |
 | `--add-github-mcp-tool=TOOL`       | Add a tool to enable for the {% data variables.product.github %} MCP server, instead of the default CLI subset (can be used multiple times). Use `*` for all tools. |
 | `--add-github-mcp-toolset=TOOLSET` | Add a toolset to enable for the {% data variables.product.github %} MCP server, instead of the default CLI subset (can be used multiple times). Use `all` for all toolsets. |
 | `--additional-mcp-config=JSON`     | Add an MCP server for this session only. The server configuration can be supplied as a JSON string or a file path (prefix with `@`). A relative `@file` path resolves against the session working directory (the `--resume`, `--worktree`, or `-C` directory), regardless of option order. Augments the configuration from `~/.copilot/mcp-config.json`. Overrides any installed MCP server configuration with the same name. See [AUTOTITLE](/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers). |
@@ -750,7 +750,7 @@ copilot --deny-tool='write(secret.txt)'
 
 | Variable | Description |
 |----------|-------------|
-| `COPILOT_ALLOW_ALL` | Set to `true` to allow all permissions automatically (equivalent to `--allow-all`). |
+| `COPILOT_ALLOW_ALL` | Allow all permissions automatically (equivalent to `--allow-all`). Accepts `true`, `1`, `yes`, `on`, or `y` (case-insensitive, surrounding whitespace ignored) to turn it on; `false`, `0`, `no`, `off`, `n`, or an empty value to turn it off. Setting it to exactly `true` also trusts the working directory without prompting, loading that directory's skills, plugins, MCP servers, and hooks (including hooks that run shell commands). The other truthy spellings only auto-approve tools. |
 | `COPILOT_AUTO_UPDATE` | Set to `false` to disable automatic updates of the CLI and first-party plugins. |
 | `COPILOT_CACHE_HOME` | Override the cache directory (used for marketplace caches, auto-update packages, and other ephemeral data). See [AUTOTITLE](/copilot/reference/copilot-cli-reference/cli-config-dir-reference#changing-the-location-of-the-configuration-directory) for platform defaults. |
 | `COPILOT_CHILD_OOM_SCORE_ADJ` | Linux only. Overrides the `oom_score_adj` bias applied to shell command process trees spawned by the CLI, so the kernel's out-of-memory (OOM) killer reclaims a runaway child process tree (for example, a build) before the CLI itself. Default: `300`. Range: `-1000`–`1000`. Set to `off` to disable the bias. |
