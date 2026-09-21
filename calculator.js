@@ -1,35 +1,24 @@
 #!/usr/bin/env node
 
-const [, , a, op, b] = process.argv;
-
-function usage() {
-  console.error('Usage: node calculator.js <num> <op> <num>');
-  console.error('Operators: + - * /');
-  process.exit(1);
+export function calculate(a, op, b) {
+  switch (op) {
+    case '+': return a + b;
+    case '-': return a - b;
+    case '*': return a * b;
+    case '/':
+      if (b === 0) throw new Error('Division by zero');
+      return a / b;
+    default:
+      throw new Error(`Unknown operator: ${op}`);
+  }
 }
 
-if (!a || !op || !b) usage();
-
-const x = Number(a);
-const y = Number(b);
-
-if (Number.isNaN(x) || Number.isNaN(y)) {
-  console.error('Error: operands must be numbers');
-  process.exit(1);
+// CLI فقط عند التشغيل المباشر
+if (import.meta.url === `file://${process.argv[1]}`) {
+  const [,, a, op, b] = process.argv;
+  if (!a || !op || !b) {
+    console.error('Usage: node calculator.js <a> <op> <b>');
+    process.exit(1);
+  }
+  console.log(calculate(Number(a), op, Number(b)));
 }
-
-let result;
-switch (op) {
-  case '+': result = x + y; break;
-  case '-': result = x - y; break;
-  case '*': result = x * y; break;
-  case '/':
-    if (y === 0) { console.error('Error: division by zero'); process.exit(1); }
-    result = x / y;
-    break;
-  default:
-    console.error(`Error: unknown operator '${op}'`);
-    usage();
-}
-
-console.log(result);
