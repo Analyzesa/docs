@@ -13,3 +13,7 @@ Supported operators: + - * /
     node --test
 
 CI runs automatically via GitHub Actions on every push and PR.
+
+## CI
+
+![Test](https://github.com/Analyzesa/docs/actions/workflows/test.yml/badge.svg)
