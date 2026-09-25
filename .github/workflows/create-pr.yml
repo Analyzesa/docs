@@ -1,0 +1,17 @@
+name: Create Pull Request
+on:
+  workflow_dispatch:
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Make some change
+        run: echo "example" > example.txt
+      - uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: automated change"
+          title: "Automated PR"
+          body: "This PR was created automatically."
+          branch: automated-update
